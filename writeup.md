@@ -16,9 +16,7 @@ My pipeline consists of 5 steps:
 
 First I converted an image to grayscale and applied Gaussian smothing on the grayscaled image, so that it is ready for edges detection.
 
-[//]: # (Image References)
-
-[grayscale_image]: ./test_images_output/blur_gray.jpg "Grayscale"
+<img src="./test_images_output/blur_gray.jpg" width="320" height="180">
 
 ### Calling Canny on Gaussian-blured image to detect edges
 
@@ -26,42 +24,32 @@ Then i called Canny function for the Gaussian-blured image to detect edges. Ther
 So I set high_threshold to 150, which was a value lower than the highest value 255 but it was good enough to represent as a strong gradient between neighbouring pixels.
 Meanwhile, I set low_threshold to 50.
 
-[//]: # (Image References)
-
-[edges_image]: ./test_images_output/edges.jpg "Edges"
+<img src="./test_images_output/edges.jpg" width="320" height="180">
 
 ### Masking the edges image with interested region
 
 After getting the Gaussian-blured edges image, I masked to obtain the interested region only.
 
-[//]: # (Image References)
-
-[masked_edges_image]: ./test_images_output/masked_edges.jpg "Masked Edges"
+<img src="./test_images_output/masked_edges.jpg" width="320" height="180">
 
 ### Applying Hough transformation on the masked edges image to find lines and produce lane lines image through the found lines.
 
 I applied Hough transformation to locate lines in the edges images. I set threshold to 15, so that when there were more than 15 lines in Hough space intersecting at a point, it would be recongized as a line in image space.
 I set theta to np.pi/180, so that each point in image space would be mapped to a Hough curve with 360 sampling (p, theta) values. I turned the rest values to find the lines.
 
-[//]: # (Image References)
-
-[line_image]: ./test_images_output/line_image.jpg "Line Image"
+<img src="./test_images_output/line_image.jpg" width="320" height="180">
 
 I then fed the found lines and a blank image to my function *fit_lane_lines*, which was an enhanced version of the given function *draw_lines*. 
 The function first split the given lines into left and right lane points by looking at the line slope, the ones with negative slope belonging to right lane and the rest to left lane.
 Then with the two set of points, I utilized *cv2.fitLine* to fit a line out of the given points. Finally i drew the two lane lines on the blank image.
 
-[//]: # (Image References)
-
-[lane_line_image]: ./test_images_output/lane_line_image.jpg "Lane Line Image"
+<img src="./test_images_output/lane_lines_image.jpg" width="320" height="180">
 
 ### Combining the lane lines image with the original image
 
 At the last step, I merged the lane line image with the original image to produce a final result.
 
-[//]: # (Image References)
-
-[combined_image]: ./test_images_output/combined.jpg "Combined Image"
+<img src="./test_images_output/combined.jpg" width="320" height="180">
 
 ## 2. Identify potential shortcomings with your current pipeline
 
